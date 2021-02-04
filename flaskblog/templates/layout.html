@@ -13,9 +13,10 @@
     {% endif %}
   </head>
   <body>
+
     <!-- Navigation Bar HTML & CSS -->
     <header class="site-header">
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: purple">
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #fb4d46">
     <div class="container">
       <a class="navbar-brand mr-4" href="/">Victor's Blog</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,16 +27,6 @@
           <a class="nav-item nav-link" href="{{ url_for('home') }}">Home</a>
           <a class="nav-item nav-link" href="{{ url_for('about') }}">About</a>
 
-          <!-- Dark Mode Script. Might delete. Might try improve. -->
-        <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
-        <script>
-          function addDarkmodeWidget() {
-            new Darkmode().showWidget();
-          }
-          window.addEventListener('load', addDarkmodeWidget);
-        </script>
-
-        </div>
         <!-- Navbar Right Side -->
         <div class="navbar-nav">
           {% if current_user.is_authenticated %}
