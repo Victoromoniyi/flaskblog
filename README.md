@@ -2,10 +2,7 @@ https://www.makeareadme.com/
 
 
 
-Uses Flask for the Framework
-Python for the backend
-Some minor javascript for Bootstrap
-SQL for the database
+Flask, Python, SQL Flask-WTF, Pillow, BCrypt, Bootstrap, Flask Validators
 
 
 CMT120 - Web Application Development Coursework
