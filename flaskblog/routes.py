@@ -154,7 +154,8 @@ def send_reset_email(user):
     msg.body = f'''To reset your password, please visit the following link:
 {url_for('reset_token', token=token, _external=True)}
 
-If you did not request this password being sent, then ignore this email.
+If you did not request this password being sent, then ignore this email. If
+you think you did not receive an email, please check your spam folder.
 '''
     mail.send(msg)
 
@@ -176,7 +177,7 @@ def reset_token(token):
     if current_user.is_authenticated:
         return redirect(url_for('home'))
     user = User.verify_reset_token(token)
-    if not User:
+    if User is None:
         flash('Invalid or expired token', 'warning')
         return redirect (url_for('reset_request'))
     form = ResetPasswordForm()

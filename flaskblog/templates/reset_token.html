@@ -19,17 +19,17 @@
           {% endif %}
         </div>
         <div class="form-group">
-          {{ form.confirm_password.label(class="form-control-label") }}
-          {% if form.confirm_password.errors %}
-            {{ form.confirm_password(class="form-control form-control-lg is-invalid") }}
-            <div class="invalid-feedback">
-              {% for error in form.confirm_password.errors %}
-                  <span>{{ error }}</span>
-              {% endfor %}
-            </div>
-          {% else %}
-              {{ form.confirm_password(class="form-control form-control-lg") }}
-          {% endif %}
+                      {{ form.password_confirm.label(class="form-control-label") }}
+                      {% if form.password_confirm.errors %}
+                          {{ form.password_confirm(class="form-control form-control-lg is-invalid") }}
+                          <div class="invalid-feedback">
+                              {% for error in form.password_confirm.errors %}
+                                  <span>{{ error }}</span>
+                              {% endfor %}
+                          </div>
+                      {% else %}
+                          {{ form.password_confirm(class="form-control form-control-lg") }}
+                      {% endif %}
         </div>
       </fieldset>
       <div class="form-group">
