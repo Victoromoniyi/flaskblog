@@ -71,3 +71,9 @@ class ResetPasswordForm(FlaskForm):
     password_confirm = PasswordField('Confirm Password',
     validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Reset Password')
+
+
+class PostComment(FlaskForm):
+    post = TextAreaField('Leave a comment', validators=[
+        DataRequired(), Length(min=1, max=160)])
+    submit = SubmitField('Submit')
