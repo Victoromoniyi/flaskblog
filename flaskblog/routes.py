@@ -5,11 +5,14 @@ from flask import (render_template, url_for,
  flash, redirect, request, abort)
 from flaskblog import app, db, bcrypt, mail
 from flaskblog.forms import (RegistrationForm, LoginForm,
-UpdateAccountForm, PostForm, RequestResetForm, ResetPasswordForm)
-from flaskblog.models import User, Post
+UpdateAccountForm, PostForm, RequestResetForm,
+ResetPasswordForm, CommentForm)
+from flaskblog.models import User, Post, Comment
 from flask_login import (current_user, login_user,
 logout_user, login_required)
 from flask_mail import Message
+
+
 
 @app.route('/')
 @app.route('/home')
@@ -17,6 +20,14 @@ def home():
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
     return render_template('home.html', posts=posts)
+
+@app.route('/')
+@app.route('/home2')
+def home_asc():
+    page = request.args.get('page', 1, type=int)
+    posts = Post.query.order_by(Post.date_posted.asc()).paginate(page=page, per_page=5)
+    return render_template('homeasc.html', posts=posts)
+
 
 @app.route('/about')
 def about():
@@ -33,8 +44,9 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash(f'Your account has been created. Welcome {form.username.data}!', 'success')
-        return redirect(url_for('login'))
+        return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
+
 
 def save_picture(form_picture):
     random_hex = secrets.token_hex(7)
@@ -46,7 +58,6 @@ def save_picture(form_picture):
     i.thumbnail(size_output)
     i.save(picture_path)
     return picture_fn
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -102,10 +113,12 @@ def new_post():
     return render_template('make_post.html', title='New Post',form=form, legend='New Post')
 
 
-@app.route("/post/<int:post_id>")
+@app.route("/post/<int:post_id>", methods=['POST', 'GET'])
 def post(post_id):
      post = Post.query.get_or_404(post_id)
-     return render_template('post.html', title=post.title, post=post)
+     comments = Comment.query.filter(Comment.post_id == post.id)
+     form = CommentForm()
+     return render_template('post.html', title=post.title, post=post, comments=comments, form=form)
 
 @app.route("/post/<int:post_id>/edit", methods=['GET', 'POST'])
 @login_required
@@ -124,6 +137,23 @@ def edit_post(post_id):
         form.content.data = post.content
         form.title.data = post.title
     return render_template('make_post.html', title='Edit Post',form=form, legend='Edit Post')
+
+
+@app.route('/post/<int:post_id>/comment', methods=['GET', 'POST'])
+@login_required
+def post_comment(post_id):
+    post = Post.query.get_or_404(post_id)
+    form = CommentForm()
+    if form.validate_on_submit():
+        db.session.add(Comment(content=form.comment.data, post_id=post.id, author_id=current_user.id))
+        db.session.commit()
+        flash("Your comment has been submitted", "success")
+        return redirect(f'/post/{post.id}')
+
+        comments = Comment.query.filter(Comment.post_id == post.id)
+        return render_template('post.html', post=post, comments=comments, form=form)
+
+
 
 @app.route("/post/<int:post_id>/delete", methods=['POST'])
 @login_required
@@ -188,3 +218,11 @@ def reset_token(token):
         flash(f'Your password has been updated. You are now able to login', 'success')
         return redirect(url_for('login'))
     return render_template('reset_token.html', title='Reset Password', form=form)
+
+@app.route('/privacypolicy')
+def privacy_policy():
+    return render_template('privacypolicy.html', title='Privacy Policy')
+
+@app.route('/likedposts')
+def liked_posts():
+    return render_template('likedposts.html', title='Liked Posts')

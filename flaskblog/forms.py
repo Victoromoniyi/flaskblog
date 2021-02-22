@@ -2,9 +2,8 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, InputRequired
 from flaskblog.models import User
-
 
 class RegistrationForm(FlaskForm):
      username = StringField('Username', validators=[DataRequired(),
@@ -73,7 +72,6 @@ class ResetPasswordForm(FlaskForm):
     submit = SubmitField('Reset Password')
 
 
-class PostComment(FlaskForm):
-    post = TextAreaField('Leave a comment', validators=[
-        DataRequired(), Length(min=1, max=160)])
-    submit = SubmitField('Submit')
+class CommentForm(FlaskForm):
+    comment = StringField('Comment', validators=[InputRequired()])
+    submit = SubmitField('Post Comment')

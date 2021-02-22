@@ -42,18 +42,22 @@
             <a class="nav-item nav-link" href="{{ url_for('new_post') }}">New Post</a>
             <a class="nav-item nav-link" href="{{ url_for('account') }}">Account</a>
             <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+            <a class="nav-item nav-link" href="{{ url_for('liked_posts') }}">Liked Posts</a>
           {% else %}
             <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
             <a class="nav-item nav-link" href="{{ url_for('register') }}">Register</a>
           {% endif %}
         </div>
       </div>
+
         <!-- Search Bar -->
-      <form class="form-inline">
+      <form class="form-inline" method="GET">
         <input class="form-control mr-sm-2" type="search"
-        placeholder="Search" aria-label="Search">
+        placeholder="Search" aria-label="Search" name="q">
+        <button class="btn btn-orange my-sm-0" type="submit">
+        <i class="fas fa-search"></i>
+        </button>
       </form>
-      <button class="btn btn-orange my-sm=0 pull-right" type="submit">Search</button>
     </div>
   </nav>
 </header>
@@ -71,10 +75,11 @@
         {% endwith %}
         {% block content %}{% endblock %}
     </div>
-    <div class="col-md-4">
+
+    <!-- <div class="col-md-4">
       <div class="content-section">
-        <h3>Our Sidebar</h3>
-          <p class='text-muted'> Placeholder text. Change Later
+        <h3>Sidebar</h3>
+          <p class='text-muted'>Topics</p>
           <ul class="list-group">
           <li class="list-group-item list-group-item-light">Latest Posts</li>
           <li class="list-group-item list-group-item-light">Announcements</li>
@@ -83,21 +88,22 @@
           </ul>
         </p>
       </div>
-    </div>
+    </div> -->
+
   </div>
 </main>
-
-<footer class="page footer bg-orange">
-  <div class="bg-warning">
+<footer class="page footer bg-orange border">
+  <div class="bg-light">
     <div class="container">
       <div class="col-md-12 text-center">
         <a href="https://www.linkedin.com/in/victor-omoniyi/"><i class="fab fa-linkedin"></i></a>
         <a href="https://github.com/Victoromoniyi"><i class="fab fa-github"></i></a>
-        <a href="#">Privacy Policy</a>
+        <a href="{{ url_for('privacy_policy') }}">Privacy Policy</a>
       </div>
     </div>
   </div>
 </footer>
+
 
 
 <!-- JQuery -->

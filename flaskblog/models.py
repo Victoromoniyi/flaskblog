@@ -7,7 +7,6 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
@@ -15,10 +14,7 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String(40), nullable=False, default='default.jpg')
     posts = db.relationship('Post', backref='author', lazy=True)
     password = db.Column(db.String(60), nullable=False)
-
-    def get_reset_token(self, expires_sec=1200):
-        s = Serializer(app.config['SECRET_KEY'], expires_sec)
-        return s.dumps({'user_id': self.id}).decode('utf-8')
+    comment = db.relationship('Comment',backref='user',lazy=True)
 
     @staticmethod
     def verify_reset_token(token):
@@ -44,6 +40,12 @@ class Post(db.Model):
 
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.String(140))
-    author = db.Column(db.String(32))
-    timestamp = db.Column(db.DateTime(), default=datetime.utcnow, index=True)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    content = db.Column(db.Text, nullable=False)
+    parent_id = db.Column(db.Integer, db.ForeignKey('comment.id'), nullable=True)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
+    author_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    parent = db.relationship('Comment', backref='comment_parent', remote_side=id, lazy=True)
+
+    def __repr__(self):
+        return f"Post('{self.date_posted}', '{self.content}')"

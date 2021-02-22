@@ -38,10 +38,36 @@
       </div>
     </div>
 
-   <!-- Comment Section -->
-    <div class="form-group">
+    {% for comment in comments %}
+      <p>"{{ comment.content }}" &nbsp <small>Author:
+        {{ comment.user.username }}</small></p>
+    {% endfor %}
+    <form method="POST" action="{{ url_for('post_comment', post_id=post.id) }}">
+      {{ form.hidden_tag() }}
+      <div class="comment-form">
+        {{ form.comment.label }} {{ form.comment }}
+        {% for error in form.comment.errors %}
+          <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+      </div>
+      <div class="border">
+        {{ form.submit() }}
+        </div>
+      </form>
+    {% for error in form.comment.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+
+
+
+
+
+  <!-- <form method="POST" action="{{ url_for('post_comment', post_id=post.id) }} ">
+    <div class="comment-form">
     <label for="exampleFormControlTextarea1">Say Something!</label>
     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-    <button type="button" class="btn btn-secondary btn-sm m-1">Post Comment</button>
+    <button type="button" class="btn btn-secondary btn-sm m-1" type="submit">Post Comment</button>
   </div>
+  </form> -->
+
 {% endblock content %}
