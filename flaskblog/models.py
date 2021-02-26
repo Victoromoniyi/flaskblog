@@ -15,7 +15,11 @@ class User(db.Model, UserMixin):
     posts = db.relationship('Post', backref='author', lazy=True)
     password = db.Column(db.String(60), nullable=False)
     comment = db.relationship('Comment',backref='user',lazy=True)
-    
+
+    def get_reset_token(self,expire_sec=1600):
+        s = Serializer(app.config['SECRET_KEY'])
+        return s.dumps({'user_id': self.id}).decode('utf-8')
+
     @staticmethod
     def verify_reset_token(token):
         s = Serializer(app.config['SECRET_KEY'])
