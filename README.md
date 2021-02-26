@@ -12,8 +12,7 @@ Flask-WTF:
 you wanna see what I mean, remove one of the bootstrap links in the layout.html)
 - Itsdangerous: Used to create a time sensitive token. I think this is installed with Flask.
 - FontAwesome: I used this CDN library for some images on some of the buttons.
-
-
+- Pipenv: Used to store environment variables locally.
 
 
 

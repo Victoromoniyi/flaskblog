@@ -4,11 +4,11 @@
      <img class="rounded-circle article-img" src="{{  url_for('static', filename='profile_pictures/' + post.author.image_file) }}">
      <div class="media-body">
       <div class="article-metadata">
-        <a class="mr-2" href="{{ url_for('username_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+        <a class="mr-2" href="{{ url_for('users.username_posts', username=post.author.username) }}">{{ post.author.username }}</a>
         <small class="text-muted">{{ post.date_posted.strftime('%B %d %Y') }}</small> <!-- Posts the time in Month, day, year format using datetime module -->
         {% if post.author == current_user %}
           <div>
-            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('edit_post', post_id=post.id) }}">Edit</a>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.edit_post', post_id=post.id) }}">Edit</a>
             <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModalCenter">Delete</button>
           </div>
         {% endif %}
@@ -30,7 +30,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST">
+            <form action="{{ url_for('posts.delete_post', post_id=post.id) }}" method="POST">
               <input class="btn btn-danger" type="submit" value="Delete">
             </form>
           </div>
@@ -42,7 +42,7 @@
       <p>"{{ comment.content }}" &nbsp <small>Author:
         {{ comment.user.username }}</small></p>
     {% endfor %}
-    <form method="POST" action="{{ url_for('post_comment', post_id=post.id) }}">
+    <form method="POST" action="{{ url_for('posts.post_comment', post_id=post.id) }}">
       {{ form.hidden_tag() }}
       <div class="comment-form">
         {{ form.comment.label }} {{ form.comment }}
@@ -68,7 +68,7 @@
 
 
 
-  <!-- <form method="POST" action="{{ url_for('post_comment', post_id=post.id) }} ">
+  <!-- <form method="POST" action="{{ url_for('posts.post_comment', post_id=post.id) }} ">
     <div class="comment-form">
     <label for="exampleFormControlTextarea1">Say Something!</label>
     <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>

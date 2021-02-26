@@ -12,8 +12,8 @@
         Sort By
       </a>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <a class="dropdown-item" href="{{ url_for('home_asc') }}">Sort by Ascending</a>
-        <a class="dropdown-item" href="{{ url_for('home') }}">Sort by Descending</a>
+        <a class="dropdown-item" href="{{ url_for('main.home_asc') }}">Sort by Ascending</a>
+        <a class="dropdown-item" href="{{ url_for('main.home') }}">Sort by Descending</a>
       </div>
     </div>
 
@@ -22,10 +22,10 @@
        <img class="rounded-circle article-img" src="{{  url_for('static', filename='profile_pictures/' + post.author.image_file) }}">
        <div class="media-body">
         <div class="article-metadata">
-          <a class="mr-2" href="{{ url_for('username_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+          <a class="mr-2" href="{{ url_for('users.username_posts', username=post.author.username) }}">{{ post.author.username }}</a>
           <small class="text-muted">{{ post.date_posted.strftime('%B %d %Y') }}</small> <!-- Posts the time in Month, day, year format using datetime module -->
         </div>
-        <h2><a class="article-title" href="{{  url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
+        <h2><a class="article-title" href="{{  url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h2>
         <p class="article-content">{{ post.content }}</p>
         </div>
       </article>
@@ -34,9 +34,9 @@
     {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
       {% if page_num%}
         {% if posts.page == page_num %}
-          <a class = "btn btn-danger mb-3"href="{{ url_for('home_asc',page=page_num) }}">{{ page_num }}</a>
+          <a class = "btn btn-danger mb-3"href="{{ url_for('main.home_asc',page=page_num) }}">{{ page_num }}</a>
         {% else %}
-          <a class = "btn btn-outline-danger mb-3"href="{{ url_for('home_asc',page=page_num) }}">{{ page_num }}</a>
+          <a class = "btn btn-outline-danger mb-3"href="{{ url_for('main.home_asc',page=page_num) }}">{{ page_num }}</a>
         {% endif %}
       {% else %}
         ...
