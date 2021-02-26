@@ -13,7 +13,6 @@ logout_user, login_required)
 from flask_mail import Message
 
 
-
 @app.route('/')
 @app.route('/home')
 def home():
@@ -27,6 +26,17 @@ def home_asc():
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(Post.date_posted.asc()).paginate(page=page, per_page=5)
     return render_template('homeasc.html', posts=posts)
+
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    s = request.args.get('s')
+    if s:
+        posts = Post.query.filter(Post.title.contains(s) |
+        Post.content.contains(s))
+    else:
+        posts =  Post.query.all()
+    return render_template('search.html', posts=posts)
 
 
 @app.route('/about')
