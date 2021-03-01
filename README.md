@@ -1,19 +1,11 @@
-https://www.makeareadme.com/
-
-
-
-Flask
-Python
-MySQL
-Flask-WTF:
+Libraries and APIs used:
 - Pillow: Adds functionality to the images making it easier to manipulate them
 - BCrypt: Used this to hash the passwords so that the raw passwords aren't stored.
-- Bootstrap: I used 2 bootstrap libraries to modify the layout. At first, I just used one but I accidentally found out that by using 2 it modifies the layout in a nice way. Is this unconventional? Probably, I'm not entirely too sure but I didn't want to change it either way. (If
-you wanna see what I mean, remove one of the bootstrap links in the layout.html)
+- Bootstrap: I used 2 bootstrap libraries to modify the layout.
 - Itsdangerous: Used to create a time sensitive token. I think this is installed with Flask.
 - FontAwesome: I used this CDN library for some images on some of the buttons.
 - Pipenv: Used to store environment variables locally.
-
+- JQuery: Used in addition with Bootstrap
 
 
 
@@ -27,3 +19,6 @@ CMT120 - Web Application Development Coursework
 3. Full (40 characters) CHECKSUM of your last commit on GitLab:
 
 [OPTIONAL] References:
+- Grinberg, M., 2021. The Flask Mega-Tutorial Part I: Hello, World!. [online] Blog.miguelgrinberg.com. Available at: <https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world> [Accessed 28 February 2021].
+- Grinberg, M., 2021. The Flask Mega-Tutorial Part XI: Facelift. [online] Blog.miguelgrinberg.com. Available at: <https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xi-facelift> [Accessed 28 February 2021].
+- Youtube.com. 2021. Corey Schafer - Flask Tutorials. [online] Available at: <https://www.youtube.com/channel/UCCezIgC97PvUuR4_gbFUs5g> [Accessed 28 February 2021].
